@@ -7,6 +7,27 @@
     <Filter Include="Terminal">
       <UniqueIdentifier>{21571b91-b4a6-4844-88ec-eb8d20a28f5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terminal\Commands">
+      <UniqueIdentifier>{30a59256-f6fe-451f-89d7-cc59813e454a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{65e2040d-e886-4f51-949a-688d447b3c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorkerWiFi">
+      <UniqueIdentifier>{24b81c6d-5c77-4286-81c9-3d1b9941b32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\wifi-scan">
+      <UniqueIdentifier>{984721df-763e-489c-ac7e-c485ee2956f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\wifi-connect">
+      <UniqueIdentifier>{980ef920-a06e-48a1-8b75-ccd92d50514b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\String">
+      <UniqueIdentifier>{01c311d1-4861-46c0-a22b-5014beb57f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Options">
+      <UniqueIdentifier>{ab6328bc-010e-45ce-9ccd-9dfcb7b2ae02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="esp_client.ino" />
@@ -18,10 +39,47 @@
     <ClInclude Include="pdTerminal.h">
       <Filter>Terminal</Filter>
     </ClInclude>
+    <ClInclude Include="pdCommand.h">
+      <Filter>Terminal</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_connect.h">
+      <Filter>Terminal\Commands\wifi-connect</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_scan.h">
+      <Filter>Terminal\Commands\wifi-scan</Filter>
+    </ClInclude>
+    <ClInclude Include="pdWorkerWiFi.h">
+      <Filter>WorkerWiFi</Filter>
+    </ClInclude>
+    <ClInclude Include="pdSettings.h" />
+    <ClInclude Include="pdString.h">
+      <Filter>Utils\String</Filter>
+    </ClInclude>
+    <ClInclude Include="pdOptions.h">
+      <Filter>Options</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pdTerminal.cpp">
       <Filter>Terminal</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand.cpp">
+      <Filter>Terminal</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_connect.cpp">
+      <Filter>Terminal\Commands\wifi-connect</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_scan.cpp">
+      <Filter>Terminal\Commands\wifi-scan</Filter>
+    </ClCompile>
+    <ClCompile Include="pdWorkerWiFi.cpp">
+      <Filter>WorkerWiFi</Filter>
+    </ClCompile>
+    <ClCompile Include="pdString.cpp">
+      <Filter>Utils\String</Filter>
+    </ClCompile>
+    <ClCompile Include="pdOptions.cpp">
+      <Filter>Options</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

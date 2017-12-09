@@ -1,4 +1,4 @@
-#include "Arduino.h"
+п»ї#include "Arduino.h"
 #include "pdTerminal.h"
 
 using namespace Terminal;
@@ -14,14 +14,11 @@ using namespace Terminal;
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ATerminal::ATerminal(Stream *stream, const int maxCmds)
+ATerminal::ATerminal(Stream *stream)
 	: 
-		mStream(stream),
-		mCmdIndex(0),
-		mMaxCmds(maxCmds)
+		mStream(stream)
 {
-	mCommands	= new TRegCommand[mMaxCmds];
-};
+}
 ///--------------------------------------------------------------------------------------
 
 
@@ -36,7 +33,6 @@ ATerminal::ATerminal(Stream *stream, const int maxCmds)
 ///--------------------------------------------------------------------------------------
 ATerminal::~ATerminal() 
 {
-	delete[] mCommands;
 }
 ///--------------------------------------------------------------------------------------
 
@@ -49,25 +45,13 @@ ATerminal::~ATerminal()
 
  ///=====================================================================================
 ///
-/// Добавление комманд
+/// Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјР°РЅРґ
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-bool ATerminal ::addCommand(const String &name, const String &description, const FAction action)
+void ATerminal ::addCommand(ACommand *cmd)
 {
-	if (mCmdIndex >= mMaxCmds) 
-	{
-		return false;
-	}
-	
-	const int index = mCmdIndex;
-	mCmdIndex++;
-	
-	TRegCommand *cmd = &mCommands[index];
-	cmd->name = name;
-	cmd->actionExec = action;
-	cmd->description = description;
-	return true;
+	mCommands.push_back(cmd);
 }
 ///--------------------------------------------------------------------------------------
 
@@ -79,7 +63,7 @@ bool ATerminal ::addCommand(const String &name, const String &description, const
 
  ///=====================================================================================
 ///
-/// обработка потока данных
+/// РѕР±СЂР°Р±РѕС‚РєР° РїРѕС‚РѕРєР° РґР°РЅРЅС‹С…
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
@@ -96,6 +80,8 @@ void ATerminal :: update()
 		char c = mStream->read();
 		switch (c)
 		{
+		case '-':
+		case ' ':
 		case '.':
 		case ',':
 		case '0' ... '9' :
@@ -137,7 +123,7 @@ void ATerminal :: update()
 
  ///=====================================================================================
 ///
-/// покажем помощь
+/// РїРѕРєР°Р¶РµРј РїРѕРјРѕС‰СЊ
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
@@ -154,7 +140,7 @@ void ATerminal :: printHelp()
 
  ///=====================================================================================
 ///
-/// установка текущего потока
+/// СѓСЃС‚Р°РЅРѕРІРєР° С‚РµРєСѓС‰РµРіРѕ РїРѕС‚РѕРєР°
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
@@ -175,7 +161,7 @@ void ATerminal :: setStream(Stream* stream)
 
  ///=====================================================================================
 ///
-/// fанализ линии
+/// fР°РЅР°Р»РёР· Р»РёРЅРёРё
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
@@ -193,20 +179,18 @@ void ATerminal:: anaylseLine(const String &line)
 		return;
 	}
 	
-	
 
-	// обработка команд
-	for (int i = 0; i < mCmdIndex; i++) 
+	// РѕР±СЂР°Р±РѕС‚РєР° РєРѕРјР°РЅРґ
+	for (auto &command : mCommands)
 	{
-		const auto *command = &mCommands[i];
-		if (cmd.equals(command->name))
+		if (cmd.equals(command->name()))
 		{
-			command->actionExec(cmd, line);
+			command->execute(mStream, line);
 			return;
 		}
 	}
 
-	mStream->print("Unknown command : ");
+	mStream->print(F("Unknown command : "));
 	mStream->println(cmd);
 }
 ///--------------------------------------------------------------------------------------
@@ -217,7 +201,7 @@ void ATerminal:: anaylseLine(const String &line)
 
  ///=====================================================================================
 ///
-/// найти первое входящее слово
+/// РЅР°Р№С‚Рё РїРµСЂРІРѕРµ РІС…РѕРґСЏС‰РµРµ СЃР»РѕРІРѕ
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
@@ -238,29 +222,28 @@ String ATerminal :: getFirstWord(const String & line)
 
  ///=====================================================================================
 ///
-/// Показать помощь
+/// РџРѕРєР°Р·Р°С‚СЊ РїРѕРјРѕС‰СЊ
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
 void ATerminal::commandHelp() 
 {
-	mStream->println("==================================");
-	mStream->println("          System terminal");
-	mStream->println("==================================");
-	mStream->println("commands available : ");
-	mStream->print(" - ");
+	mStream->println(F("============================================"));
+	mStream->println(F("          РЎРёСЃС‚РµРјРЅС‹Р№ С‚РµСЂРјРёРЅР°Р»"));
+	mStream->println(F("============================================"));
+	mStream->println(F("Р”РѕСЃС‚СѓРїРЅС‹Рµ РєРѕРјР°РЅРґС‹ : "));
+	mStream->print(F(" - "));
 	mStream->println(Settings::CMD_HELP);
 	
 
-	for (int i = 0; i < mCmdIndex; i++) 
+	for (auto &command : mCommands)
 	{
-		const auto *command = &mCommands[i];
-		mStream->print(" - ");
-		mStream->print(command->name);
-		mStream->print(" ");
-		mStream->println(command->description);
+		mStream->print(F(" - "));
+		mStream->print(command->name());
+		mStream->print(F(" "));
+		mStream->println(command->description());
 	}
-	mStream->println("==================================");
+	mStream->println(F("============================================"));
 }
 ///--------------------------------------------------------------------------------------
 

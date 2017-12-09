@@ -1,6 +1,8 @@
-#pragma once
+п»ї#pragma once
 
 #include <Arduino.h>
+#include <vector>
+#include "pdCommand.h"
 
 namespace Settings
 {
@@ -55,37 +57,7 @@ namespace Terminal
 
 	 ///=====================================================================================
 	///
-	/// обработчик лямбд функций функций
-	/// 
-	/// 
-	///--------------------------------------------------------------------------------------
-	using FAction	= void(*)(const String&, const String&);		
-	///--------------------------------------------------------------------------------------
-
-
-
-
-	///=====================================================================================
-	///
-	/// хранилище команд
-	/// 
-	/// 
-	///--------------------------------------------------------------------------------------
-	using TRegCommand = struct
-	{
-		String		name;
-		String		description;
-		FAction		actionExec;
-	};
-	///--------------------------------------------------------------------------------------
-
-
-
-
-
-	 ///=====================================================================================
-	///
-	/// Терминал
+	/// РўРµСЂРјРёРЅР°Р»
 	/// 
 	/// 
 	///--------------------------------------------------------------------------------------
@@ -108,7 +80,7 @@ namespace Terminal
 		/// 
 		/// 
 		///--------------------------------------------------------------------------------------
-		ATerminal(Stream *stream = nullptr, const int maxCmds = 5);
+		ATerminal(Stream *stream = nullptr);
 		///--------------------------------------------------------------------------------------
 
 
@@ -131,14 +103,10 @@ namespace Terminal
 		 ///=====================================================================================
 		///
 		/// Add a command
-		/// @param name name of the command(must be unique)
-		///	@param fnPtr pointer to the callback of the command
-		///	@param description(optional) description of the command(will be printed to help)
-		///	@return
 		/// 
 		/// 
 		///--------------------------------------------------------------------------------------
-		bool addCommand(const String &name, const String &description, const FAction action);
+		void addCommand(ACommand *cmd);
 		///--------------------------------------------------------------------------------------
 
 
@@ -184,6 +152,11 @@ namespace Terminal
 		///--------------------------------------------------------------------------------------
 		void setStream(Stream *stream);
 
+
+
+		//Р·Р°Р±Р»РѕРєРёСЂСѓРµРј РєРѕРїРёСЂРѕРІР°РЅРёРµ
+		ATerminal& operator = (const ATerminal&) = delete;
+		ATerminal(const ATerminal&) = delete;
 	private:
 
 		void	anaylseLine		(const String &line);
@@ -192,9 +165,7 @@ namespace Terminal
 		void	commandHelp();
 	
 	
-		int				mMaxCmds;
-		int				mCmdIndex;
-		TRegCommand*	mCommands;
+		std::vector<ACommand*> mCommands;
 
 		Stream*			mStream;
 		String			mBuffer;

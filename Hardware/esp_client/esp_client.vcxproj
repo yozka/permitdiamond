@@ -84,11 +84,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pdCommand.h" />
+    <ClInclude Include="pdCommand_connect.h" />
+    <ClInclude Include="pdCommand_scan.h" />
+    <ClInclude Include="pdOptions.h" />
+    <ClInclude Include="pdSettings.h" />
+    <ClInclude Include="pdString.h" />
     <ClInclude Include="pdTerminal.h" />
+    <ClInclude Include="pdWorkerWiFi.h" />
     <ClInclude Include="__vm\.esp_client.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="pdCommand.cpp" />
+    <ClCompile Include="pdCommand_connect.cpp" />
+    <ClCompile Include="pdCommand_scan.cpp" />
+    <ClCompile Include="pdOptions.cpp" />
+    <ClCompile Include="pdString.cpp" />
     <ClCompile Include="pdTerminal.cpp" />
+    <ClCompile Include="pdWorkerWiFi.cpp" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
