@@ -1,6 +1,13 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
+#include "pdTerminal.h"
+
+
+
+Terminal::ATerminal terminal(&Serial, 10);
+
+
 const char* ssid = "Zoopark";
 const char* password = "dfokldfsjnjfri545kghqp9";
 
@@ -12,8 +19,15 @@ char  replyPacekt[] = "Hi there! Got the message :-)";  // a reply string to sen
 
 void setup()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
     Serial.println();
+
+
+	terminal.addCommand("list", "WiFi point" , [](const String &cmd, const String &line)
+									{
+
+	});
+
 
     Serial.printf("Connecting to %s ", ssid);
     
@@ -33,6 +47,9 @@ void setup()
 
 void loop()
 {
+	terminal.update();
+
+	/*
     int packetSize = Udp.parsePacket();
     if (packetSize)
     {
@@ -50,4 +67,5 @@ void loop()
       Udp.write(incomingPacket, len);
       Udp.endPacket();
     }
+	*/
 }
