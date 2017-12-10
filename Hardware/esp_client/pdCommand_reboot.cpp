@@ -1,4 +1,4 @@
-﻿#include "pdCommand_scan.h"
+﻿#include "pdCommand_reboot.h"
 
 #include <ESP8266WiFi.h>
 
@@ -16,7 +16,7 @@ using namespace Terminal;
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ACMD_scan::ACMD_scan()
+ACMD_reboot :: ACMD_reboot()
 {
 
 }
@@ -32,7 +32,7 @@ ACMD_scan::ACMD_scan()
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ACMD_scan::~ACMD_scan()
+ACMD_reboot :: ~ACMD_reboot()
 {
 
 }
@@ -51,34 +51,22 @@ ACMD_scan::~ACMD_scan()
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-void ACMD_scan:: execute(Stream *stream, const String &param)
+void ACMD_reboot :: execute(Stream *stream, const String &param)
 {
 	if (stream == nullptr)
 	{
+		ESP.restart();
 		return;
 	}
-	stream->print(FPSTR("Поиск доступных Wi-Fi точек"));
-	WiFi.scanNetworks(true);
-	while (WiFi.scanComplete() < 0)
+	stream->print(FPSTR("Перезагрузка устройства"));
+	for (int i = 0; i < 5; i++)
 	{
 		delay(500);
 		stream->print(FPSTR("."));
 	}
+	ESP.wdtDisable();
+	ESP.restart();
 	stream->println();
-	const int count = WiFi.scanComplete();
-	if (count <= 0)
-	{
-		stream->println(FPSTR("Сетевые точки не обнаружены"));
-		return;
-	}
-	stream->println(FPSTR("------------------------------------------------------"));
-	for (int i = 0; i < count; i++)
-	{
-		stream->print(WiFi.BSSIDstr(i));
-		stream->print(" \t ");
-		stream->println(WiFi.SSID(i));
-	}
-	stream->println(FPSTR("------------------------------------------------------"));
 }
 ///--------------------------------------------------------------------------------------
 

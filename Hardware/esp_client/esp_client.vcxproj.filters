@@ -28,6 +28,33 @@
     <Filter Include="Options">
       <UniqueIdentifier>{ab6328bc-010e-45ce-9ccd-9dfcb7b2ae02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terminal\Commands\wifi">
+      <UniqueIdentifier>{1cc28b70-acb2-499c-b20c-8ffea9ae336e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\wifi-reconnect">
+      <UniqueIdentifier>{8ca49577-976a-453d-9e34-c1851d002bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\reboot">
+      <UniqueIdentifier>{e290cb94-a7a1-46f1-bef5-fcf269c3aed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\name">
+      <UniqueIdentifier>{1ef6e27c-3cea-4be1-a223-2069e0de6f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\reinitialize">
+      <UniqueIdentifier>{4e66bebd-4781-4d9f-a98e-66ca31ec01a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\nfc-masterkey">
+      <UniqueIdentifier>{9bb16acc-a257-4da5-aec0-9a182951d3bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terminal\Commands\nfc">
+      <UniqueIdentifier>{0a1fccad-a428-4e55-9336-a8031a50836c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NFC">
+      <UniqueIdentifier>{2e8345b4-1901-4a09-8780-1e1e1b06d8a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{76081f03-f33d-4e14-8660-7bea4f20244e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="esp_client.ino" />
@@ -58,6 +85,24 @@
     <ClInclude Include="pdOptions.h">
       <Filter>Options</Filter>
     </ClInclude>
+    <ClInclude Include="pdCommand_wifi.h">
+      <Filter>Terminal\Commands\wifi</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_reconnect.h">
+      <Filter>Terminal\Commands\wifi-reconnect</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_reboot.h">
+      <Filter>Terminal\Commands\reboot</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_reinitialize.h">
+      <Filter>Terminal\Commands\reinitialize</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_name.h">
+      <Filter>Terminal\Commands\name</Filter>
+    </ClInclude>
+    <ClInclude Include="pdNearFieldCommunication.h">
+      <Filter>NFC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pdTerminal.cpp">
@@ -80,6 +125,24 @@
     </ClCompile>
     <ClCompile Include="pdOptions.cpp">
       <Filter>Options</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_wifi.cpp">
+      <Filter>Terminal\Commands\wifi</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_reconnect.cpp">
+      <Filter>Terminal\Commands\wifi-reconnect</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_reboot.cpp">
+      <Filter>Terminal\Commands\reboot</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_reinitialize.cpp">
+      <Filter>Terminal\Commands\reinitialize</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_name.cpp">
+      <Filter>Terminal\Commands\name</Filter>
+    </ClCompile>
+    <ClCompile Include="pdNearFieldCommunication.cpp">
+      <Filter>NFC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

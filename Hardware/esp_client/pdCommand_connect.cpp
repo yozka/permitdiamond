@@ -69,7 +69,7 @@ void ACMD_connect:: execute(Stream *stream, const String &param)
 	}
 
 	const String name		= values[1];
-	const String password	= (values.size() <= 2) ? values[2] : String();
+	const String password	= (values.size() >= 2) ? values[2] : String();
 	stream->print(FPSTR("Точка доступа: "));
 	stream->println(name);
 	mWiFi->connect(name, password);

@@ -56,7 +56,6 @@ AWorkerWiFi::~AWorkerWiFi()
 ///--------------------------------------------------------------------------------------
 void AWorkerWiFi::begin()
 {
-	WiFi.hostname("Fablab permit");
 	reconnect();
 }
 ///--------------------------------------------------------------------------------------
@@ -75,7 +74,8 @@ void AWorkerWiFi :: connect(const String &ssid, const String &password)
 {
 	if (mOptions)
 	{
-		mOptions->saveConnect(ssid, password);
+		mOptions->setSsid(ssid);
+		mOptions->setPassword(password);
 	}
 	reconnect();
 }
@@ -98,19 +98,23 @@ void AWorkerWiFi :: reconnect()
 		mStream->println(F("Ошибка, система настроек не работает."));
 		return;
 	}
+	WiFi.hostname(mOptions->name());
 
 	const auto ssid		= mOptions->ssid();
 	const auto password = mOptions->password();
+
+	WiFi.disconnect();
 
 	if (ssid.length() == 0)
 	{
 		return;
 	}
 
-
-
 	mStream->print(F("Соеденение с WiFi: "));
 	mStream->print(ssid);
+	
+	//mStream->print("["); mStream->print(password); mStream->print("]");
+	
 	WiFi.begin(ssid.c_str(), password.c_str());
 	while (WiFi.status() != WL_CONNECTED)
 	{
@@ -129,7 +133,7 @@ void AWorkerWiFi :: reconnect()
 		delay(500);
 		mStream->print(".");
 	}
-	mStream->println(F(" соеденино"));
+	mStream->println(F(" соеденение установленно"));
 }
 ///--------------------------------------------------------------------------------------
 

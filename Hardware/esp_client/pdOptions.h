@@ -3,13 +3,16 @@
 namespace Options
 {
 	///--------------------------------------------------------------------------------------
-
+	const int CRCKey = 0x9A;
 
 	struct TData
 	{
-		char ssid[30];		//точка доступа
-		char password[30];	//пароль для точки доступа
+		char crc;					//магическое число CRCKey
+		unsigned char ssid[30];		//точка доступа
+		unsigned char password[30];	//пароль для точки доступа
+		unsigned char name[30];		//имя устройтсва
 	};
+	///--------------------------------------------------------------------------------------
 
 
 
@@ -50,20 +53,25 @@ namespace Options
 		///--------------------------------------------------------------------------------------
 
 
+		void reinitialize(); //вернуть настройки по умолчанию
+
 
 
 		///--------------------------------------------------------------------------------------
-		String ssid() const;		//имя точки доступа
-		String password()const;		//пароль для точки доступа
+		/// настрйоки точки доступа
+
+		String	ssid		()const;					//имя точки доступа
+		String	password	()const;					//пароль для точки доступа
+		void	setSsid		(const String &ssid);		//установка индификатора точки доступа
+		void	setPassword	(const String &password);	//устновка пароля
 		///--------------------------------------------------------------------------------------
 
 
+		String	name		()const;					//возвратить имя устройства
+		void	setName		(const String &name);		//утсновка иммя устройства
 
 
-		//сохранение
-		void saveConnect(const String &ssid, const String &password); //сохранеие настроек подключение к сети
-
-
+		
 
 		//заблокируем копирование
 		AOptions& operator = (const AOptions&) = delete;
@@ -73,8 +81,9 @@ namespace Options
 
 
 		
-	
-
+		void read(TData &data) const; //чтение данных
+		void write(const TData &data); //запись данных
+		void defaultData(TData &data) const; //установим данные по умолчанию
 
 	};
 
