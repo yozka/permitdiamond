@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <Arduino.h>
-namespace Networks
+#include "pdOptions.h"
+namespace Network
 {
 	///--------------------------------------------------------------------------------------
 
@@ -27,7 +28,7 @@ namespace Networks
 		///
 		/// Constructor.
 		///--------------------------------------------------------------------------------------
-		AWorkerWiFi(Stream *stream);
+		AWorkerWiFi(Stream *stream, Options::AOptions *options);
 		///--------------------------------------------------------------------------------------
 
 
@@ -95,7 +96,7 @@ namespace Networks
 
 	
 		Stream *mStream;
-
+		Options::AOptions *mOptions;
 
 		
 

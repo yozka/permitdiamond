@@ -17,7 +17,7 @@ using namespace Terminal;
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ACMD_connect :: ACMD_connect(Networks::AWorkerWiFi *wifi)
+ACMD_connect :: ACMD_connect(Network::AWorkerWiFi *wifi)
 	:
 	mWiFi(wifi)
 {

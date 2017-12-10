@@ -7,7 +7,7 @@
 
 
 
-using namespace Networks;
+using namespace Network;
 ///--------------------------------------------------------------------------------------
 
 
@@ -20,9 +20,10 @@ using namespace Networks;
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-AWorkerWiFi :: AWorkerWiFi(Stream *stream)
+AWorkerWiFi :: AWorkerWiFi(Stream *stream, Options::AOptions *options)
 	:
-	mStream(stream)
+	mStream(stream),
+	mOptions(options)
 {
 	
 }
@@ -88,17 +89,20 @@ void AWorkerWiFi :: connect(const String &ssid, const String &password)
 ///--------------------------------------------------------------------------------------
 void AWorkerWiFi :: reconnect()
 {
-	/*
-	String ssid		= Utils::readString(Settings::addr_ssid, Settings::max_ssid);
-	String password = Utils::readString(Settings::addr_password, Settings::max_password);
+	if (mOptions == nullptr)
+	{
+		mStream->println(F("Ошибка, система настроек не работает."));
+		return;
+	}
+
+	String ssid		= mOptions->readString(Settings::addr_ssid);
+	String password = mOptions->readString(Settings::addr_password);
 
 	if (ssid.length() == 0)
 	{
 		return;
 	}
-	*/
-	String ssid = "Zoopark";
-	String password = "";
+
 
 
 	mStream->print(F("Соеденение с WiFi: "));

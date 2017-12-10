@@ -32,7 +32,7 @@ namespace Terminal
 		///
 		/// Constructor.
 		///--------------------------------------------------------------------------------------
-		ACMD_connect(Networks::AWorkerWiFi *wifi);
+		ACMD_connect(Network::AWorkerWiFi *wifi);
 		///--------------------------------------------------------------------------------------
 
 
@@ -96,7 +96,7 @@ namespace Terminal
 
 	private:
 
-		Networks::AWorkerWiFi *mWiFi;
+		Network::AWorkerWiFi *mWiFi;
 
 
 	};

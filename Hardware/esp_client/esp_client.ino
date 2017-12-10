@@ -1,14 +1,14 @@
 ﻿#include <Arduino.h>
 
-
+#include "pdOptions.h"
 #include "pdWorkerWiFi.h"
 #include "pdTerminal.h"
 #include "pdCommand_scan.h"
 #include "pdCommand_connect.h"
 
 
-
-Networks::AWorkerWiFi	workerWiFi(&Serial);			//помошник вайфая
+Options::AOptions		options;						//система настроек
+Network::AWorkerWiFi	workerWiFi(&Serial, &options);			//помошник вайфая
 
 Terminal::ATerminal		terminal(&Serial);				//терминал
 Terminal::ACMD_scan		cmd_scan;						//команда терминала список вафлей

@@ -71,12 +71,14 @@ void ACMD_scan:: execute(Stream *stream, const String &param)
 		stream->println(FPSTR("Сетевые точки не обнаружены"));
 		return;
 	}
-	stream->println(FPSTR("-------------------------------"));
+	stream->println(FPSTR("------------------------------------------------------"));
 	for (int i = 0; i < count; i++)
 	{
+		stream->print(WiFi.BSSIDstr(i));
+		stream->print(" \t ");
 		stream->println(WiFi.SSID(i));
 	}
-	stream->println(FPSTR("-------------------------------"));
+	stream->println(FPSTR("------------------------------------------------------"));
 }
 ///--------------------------------------------------------------------------------------
 
