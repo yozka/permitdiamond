@@ -99,6 +99,8 @@ void AWorkerWiFi :: reconnect()
 	*/
 	String ssid = "Zoopark";
 	String password = "";
+
+
 	mStream->print(F("Соеденение с WiFi: "));
 	mStream->print(ssid);
 	WiFi.begin(ssid.c_str(), password.c_str());
@@ -107,6 +109,12 @@ void AWorkerWiFi :: reconnect()
 		if (WiFi.status() == WL_CONNECT_FAILED)
 		{
 			mStream->println(F(" ОШИБКА!!!"));
+			return;
+		}
+
+		if (WiFi.status() == WL_NO_SSID_AVAIL)
+		{
+			mStream->println(F(" Точка доступа не найденна!!!"));
 			return;
 		}
 
@@ -125,8 +133,6 @@ void AWorkerWiFi :: reconnect()
 
 
 
-const char* ssid = "Zoopark";
-const char* password = "dfokldfsjnjfri545kghqp9";
 
 WiFiUDP Udp;
 unsigned int localUdpPort = 4210;  // local port to listen on
