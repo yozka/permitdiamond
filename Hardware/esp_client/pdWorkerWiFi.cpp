@@ -73,6 +73,10 @@ void AWorkerWiFi::begin()
 ///--------------------------------------------------------------------------------------
 void AWorkerWiFi :: connect(const String &ssid, const String &password)
 {
+	if (mOptions)
+	{
+		mOptions->saveConnect(ssid, password);
+	}
 	reconnect();
 }
 ///--------------------------------------------------------------------------------------
@@ -95,8 +99,8 @@ void AWorkerWiFi :: reconnect()
 		return;
 	}
 
-	String ssid		= mOptions->readString(Settings::addr_ssid);
-	String password = mOptions->readString(Settings::addr_password);
+	const auto ssid		= mOptions->ssid();
+	const auto password = mOptions->password();
 
 	if (ssid.length() == 0)
 	{
