@@ -11,6 +11,7 @@ namespace Options
 		unsigned char ssid[30];		//точка доступа
 		unsigned char password[30];	//пароль для точки доступа
 		unsigned char name[30];		//имя устройтсва
+		unsigned char token[20];	//токен для доступа
 	};
 	///--------------------------------------------------------------------------------------
 
@@ -70,6 +71,9 @@ namespace Options
 		String	name		()const;					//возвратить имя устройства
 		void	setName		(const String &name);		//утсновка иммя устройства
 
+
+		String	token		()const;					//возратить токен доступа (пароль сервера)
+		void	setToken	(const String &token);		//установка токена
 
 		
 

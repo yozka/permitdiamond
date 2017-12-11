@@ -73,6 +73,18 @@
     <Filter Include="Utils\MD5">
       <UniqueIdentifier>{f23167b8-f269-405a-843d-3ed3fabe968e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terminal\Commands\token">
+      <UniqueIdentifier>{020c4382-a897-4adf-9989-8d51f5b456d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\SecurityTokenPolicy">
+      <UniqueIdentifier>{1b3545b3-12be-400a-b99e-be9dfb4d6c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Actions">
+      <UniqueIdentifier>{b474b363-adf9-4cc4-9cb7-5cb373c22ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Packet">
+      <UniqueIdentifier>{195b4c7a-312e-4445-887a-b53f96250b06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="esp_client.ino" />
@@ -148,6 +160,21 @@
     <ClInclude Include="pdMD5.h">
       <Filter>Utils\MD5</Filter>
     </ClInclude>
+    <ClInclude Include="pdCommand_token.h">
+      <Filter>Terminal\Commands\token</Filter>
+    </ClInclude>
+    <ClInclude Include="pdSecurityTokenPolicy.h">
+      <Filter>Client\SecurityTokenPolicy</Filter>
+    </ClInclude>
+    <ClInclude Include="pdProtocol.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="pdAction.h">
+      <Filter>Client\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="pdPacket.h">
+      <Filter>Client\Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pdTerminal.cpp">
@@ -215,6 +242,18 @@
     </ClCompile>
     <ClCompile Include="pdMD5.cpp">
       <Filter>Utils\MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_token.cpp">
+      <Filter>Terminal\Commands\token</Filter>
+    </ClCompile>
+    <ClCompile Include="pdSecurityTokenPolicy.cpp">
+      <Filter>Client\SecurityTokenPolicy</Filter>
+    </ClCompile>
+    <ClCompile Include="pdAction.cpp">
+      <Filter>Client\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="pdPacket.cpp">
+      <Filter>Client\Packet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿#include "pdClient.h"
 #include "pdSettings.h"
 
-
+///--------------------------------------------------------------------------------------
 using namespace Network;
 ///--------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ using namespace Network;
 ///--------------------------------------------------------------------------------------
 AClient :: AClient()
 {
-	
+
 }
 ///--------------------------------------------------------------------------------------
 
@@ -41,6 +41,50 @@ AClient :: ~AClient()
 
 
 
+ ///=====================================================================================
+///
+/// добавление действия к протоколу сетевому
+/// 
+/// 
+///--------------------------------------------------------------------------------------
+void AClient :: addAction(AAction *action)
+{
+	mActions.push_back(action);
+}
+///--------------------------------------------------------------------------------------
+
+
+
+
+
+ ///=====================================================================================
+///
+/// установка токена
+/// 
+/// 
+///--------------------------------------------------------------------------------------
+void AClient :: setToken(const String &token)
+{
+	mSTP.setToken(token);
+}
+///--------------------------------------------------------------------------------------
+
+
+
+
+ ///=====================================================================================
+///
+/// получить текущий токен
+/// 
+/// 
+///--------------------------------------------------------------------------------------
+String AClient :: token()const
+{
+	return mSTP.token();
+}
+///--------------------------------------------------------------------------------------
+
+
 
 
 
@@ -52,7 +96,7 @@ AClient :: ~AClient()
 ///--------------------------------------------------------------------------------------
 void AClient :: begin()
 {
-	mUdp.begin(Settings::client_port);
+	mUdp.begin(Settings::clientPort);
 }
 ///--------------------------------------------------------------------------------------
 
@@ -67,51 +111,76 @@ void AClient :: begin()
 ///--------------------------------------------------------------------------------------
 void AClient :: update()
 {
-	const int available = mUdp.available();
-	if (available <= 0)
+	const int packetSize = mUdp.parsePacket();
+	if (packetSize <= 0)
 	{
 		//данные не пришли
 		return;
 	}
 
-	//чтение пакета
-	//и создание и передача его команде
-	const int packetSize = mUdp.read(mBuffer, Protocol::bufferSize);
+	//создадис входящий пакет
+	mPacketReceiv.create(packetSize);
+	mUdp.read(mPacketReceiv.data(), mPacketReceiv.size());
+	
+	if (!mPacketReceiv.isValid())
+	{
+		//пакет битый в хламину
+		return;
+	}
+
+	/*
+	
 	if (packetSize <= sizeof(Protocol::THeader))
 	{
 		//пакет маленький, пришло какоето гавно
 		return;
 	}
 
-	const auto *header = (Protocol::THeader*)mBuffer;
+	const auto *header = (Protocol::THeader*)mBufferReceiv;
 	if (header->SRC != Protocol::SRC)
 	{
 		//проблема с магическим числом. пакет неверный
 		return;
 	}
 
-	//проверка хеша подписи
-	//хешь считается от Sequince + typeCommand + token
-	mHash.sequence = header->sequence;
-	mHash.typeCommand = header->typeCommand;
-	mMD5.update((char*)&mHash, sizeof(Protocol::TCalcHash));
-	m
-
-	/*
-	// receive incoming UDP packets
-	Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
-	int len = Udp.read(incomingPacket, 255);
-	if (len > 0)
+	//проверка достоверность данных
+	if (!mSTP.securityCheck(header))
 	{
-		incomingPacket[len] = 0;
+		//данные не корректные, отошлем серверу чтобы он перехерачил данные
+		return;
 	}
-	Serial.printf("UDP packet contents: %s\n", incomingPacket);
 
-	// send back a reply, to the IP address and port we got the packet from
-	Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-	Udp.write(incomingPacket, len);
-	Udp.endPacket();
+
+	//поиск команды для обработки запроса
+	AAction *pAction = nullptr;
+	for (auto &action : mActions)
+	{
+		if (action->typeAction() == header->typeAction)
+		{
+			pAction == action;
+			break;
+		}
+	}
+	if (pAction == nullptr)
+	{
+		//команда не найденна
+		return;
+	}
+
+	//
+	//указатель данных
+	const uint8_t *pData = mBufferReceiv + sizeof(Protocol::THeader);
+	const int sizeData = packetSize - sizeof(Protocol::THeader);
+
+	pAction->receiv();
+
+	//отошлем ответ
+	mUdp.beginPacket(mUdp.remoteIP(), mUdp.remotePort());
+	//mUdp.write(mBufferSend, len);
+	mUdp.endPacket();
+
 	*/
+
 }
 ///--------------------------------------------------------------------------------------
 

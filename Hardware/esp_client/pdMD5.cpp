@@ -299,7 +299,7 @@ void AMD5::update(const char input[], size_t length)
 
 // MD5 finalization. Ends an MD5 message-digest operation, writing the
 // the message digest and zeroizing the context.
-AMD5& AMD5::finalize()
+void AMD5::finalize()
 {
 	static unsigned char padding[64] = {
 		0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -307,7 +307,8 @@ AMD5& AMD5::finalize()
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	if (!finalized) {
+	if (!finalized) 
+	{
 		// Save number of bits
 		unsigned char bits[8];
 		encode(bits, count, 8);
@@ -329,11 +330,20 @@ AMD5& AMD5::finalize()
 
 		finalized = true;
 	}
-
-	return *this;
 }
 
 //////////////////////////////
 
 
-
+//проверка на совпадение
+bool AMD5::equals(const unsigned char hash[16]) const
+{
+	for (int i = 0; i < 16; i++)
+	{
+		if (hash[i] != digest[16])
+		{
+			return false;
+		}
+	}
+	return true;
+}

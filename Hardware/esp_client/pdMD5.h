@@ -59,8 +59,8 @@ namespace Utils
 		AMD5();
 		void update(const unsigned char *buf, size_t length);
 		void update(const char *buf, size_t length);
-		AMD5& finalize();
-		
+		void finalize();
+		bool equals(const unsigned char hash[16]) const; //проверка на совпадение
 
 	private:
 		void init();

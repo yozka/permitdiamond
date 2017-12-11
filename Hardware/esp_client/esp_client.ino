@@ -13,7 +13,7 @@
 #include "pdCommand_reboot.h"
 #include "pdCommand_reinitialize.h"
 #include "pdCommand_name.h"
-
+#include "pdCommand_token.h"
 
 
 
@@ -31,13 +31,14 @@ Terminal::ACMD_reconnect	cmd_reconnect(&workerWiFi);		//переподклчит
 Terminal::ACMD_reboot		cmd_reboot;						//перезагрузить систему
 Terminal::ACMD_reinitialize	cmd_reinitialize(&options);		//сбросить настройки
 Terminal::ACMD_name			cmd_name(&options);				//имя устройства
-
+Terminal::ACMD_token		cmd_token(&options, &client);	//токен доступа индентификация на сервере
 
 
 void setup()
 {
 	//инциализация терминала
 	terminal.addCommand(&cmd_name);
+	terminal.addCommand(&cmd_token);
 	terminal.addCommand(&cmd_wifi);
 	terminal.addCommand(&cmd_scan);
 	terminal.addCommand(&cmd_connect);
@@ -53,7 +54,9 @@ void setup()
 
 	workerWiFi.begin();
 	device.begin();
+
 	client.begin();
+	client.setToken(options.token());
 }
 
 
@@ -62,4 +65,5 @@ void loop()
 	terminal.update();	//работа терминала
 	device.update();	//работа устройств
 	client.update();	//сетевые действия
+	workerWiFi.update(); //работа вафли
 }

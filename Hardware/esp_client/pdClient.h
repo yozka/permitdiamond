@@ -1,41 +1,13 @@
 ﻿#pragma once
+#include <vector>
 #include <Arduino.h>
 #include <WiFiUdp.h>
-#include "pdMD5.h"
+#include "pdPacket.h"
+#include "pdSecurityTokenPolicy.h"
+#include "pdAction.h"
 namespace Network
 {
 	///--------------------------------------------------------------------------------------
-	namespace Protocol
-	{
-		const int bufferSize	= 0xFF; //размер буфера для пакетов
-		const int SRC			= 0x9A; //индификатор пакета
-
-		#pragma push pack(1)
-	
-		//заголовок пакета
-		struct THeader
-		{
-			uint8_t		SRC;		//магическое число индфификатора пакета
-			uint32_t	sequence;	//индификатор пакета
-			uint8_t		hash[8];	//хешь пакета подпись
-			uint8_t		typeCommand;//тип команды
-		};
-		//
-
-
-		//система подсчета правельности пакета
-		struct TCalcHash
-		{
-			uint32_t	sequence;	//индификатор пакета
-			uint8_t		typeCommand;//тип команды
-			uint8_t		token[11];	//закрытый токен доступа
-		};
-
-		#pragma pop pack
-	}
-	///--------------------------------------------------------------------------------------
-
-
 
 
 
@@ -55,10 +27,9 @@ namespace Network
 
 
 
-
 		 ///=====================================================================================
 		///
-		/// Constructor.
+		/// Constructor
 		///--------------------------------------------------------------------------------------
 		AClient();
 		///--------------------------------------------------------------------------------------
@@ -77,11 +48,13 @@ namespace Network
 		///--------------------------------------------------------------------------------------
 
 
+		void addAction(AAction *action); //добавление действия к протоколу сетевому
 
 		void begin();	//инциализация считывателя меток
 		void update();	//обновление состояния считывания меток
 
-
+		void setToken(const String &token); //установка токена
+		String token()const; //получить текущий токен
 
 		//заблокируем копирование
 		AClient& operator = (const AClient&) = delete;
@@ -89,14 +62,17 @@ namespace Network
 
 	private:
 
+		std::vector<AAction*> mActions; //действия над сетевым интерфейсом
 
 
+		WiFiUDP				mUdp; //удп протокол связи
+		APacket				mPacketReceiv; //пакет для приема сообщений
+		APacket				mPacketSend; //пакет для отправки сообщений
 
-		WiFiUDP			mUdp; //удп протокол связи
-		byte			mBuffer[Protocol::bufferSize]; //буфер данных
 		
-		Utils::AMD5			mMD5;	//расчет контрольных сумм
-		Protocol::TCalcHash mHash;	//данные для расчета хеша
+		STP::ASecurityTokenPolicy mSTP; //система защиты протокола и целостность данных
+
+
 	};
 
 }
