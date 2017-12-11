@@ -49,11 +49,29 @@
     <Filter Include="Terminal\Commands\nfc">
       <UniqueIdentifier>{0a1fccad-a428-4e55-9336-a8031a50836c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NFC">
-      <UniqueIdentifier>{2e8345b4-1901-4a09-8780-1e1e1b06d8a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Client">
       <UniqueIdentifier>{76081f03-f33d-4e14-8660-7bea4f20244e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{0594fa80-8a7b-40af-8c35-762a0391ed81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\NFC">
+      <UniqueIdentifier>{2e8345b4-1901-4a09-8780-1e1e1b06d8a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Display">
+      <UniqueIdentifier>{099fa0f2-456c-4723-867c-d67481a84f15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Buzzer">
+      <UniqueIdentifier>{905de5c1-32be-4f3c-a1e0-ef3250fb546b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Led">
+      <UniqueIdentifier>{a6e4f10c-6eb1-475f-a68d-16462a711f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Relay">
+      <UniqueIdentifier>{d7b5ab32-16f4-451c-8c9f-f22c3abbe92d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\MD5">
+      <UniqueIdentifier>{f23167b8-f269-405a-843d-3ed3fabe968e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +119,34 @@
       <Filter>Terminal\Commands\name</Filter>
     </ClInclude>
     <ClInclude Include="pdNearFieldCommunication.h">
-      <Filter>NFC</Filter>
+      <Filter>Devices\NFC</Filter>
+    </ClInclude>
+    <ClInclude Include="pdClient.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_nfc.h">
+      <Filter>Terminal\Commands\nfc</Filter>
+    </ClInclude>
+    <ClInclude Include="pdCommand_nfcMasterkey.h">
+      <Filter>Terminal\Commands\nfc-masterkey</Filter>
+    </ClInclude>
+    <ClInclude Include="pdDisplay.h">
+      <Filter>Devices\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="pdBuzzer.h">
+      <Filter>Devices\Buzzer</Filter>
+    </ClInclude>
+    <ClInclude Include="pdLed.h">
+      <Filter>Devices\Led</Filter>
+    </ClInclude>
+    <ClInclude Include="pdRelay.h">
+      <Filter>Devices\Relay</Filter>
+    </ClInclude>
+    <ClInclude Include="pdDevice.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="pdMD5.h">
+      <Filter>Utils\MD5</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +187,34 @@
       <Filter>Terminal\Commands\name</Filter>
     </ClCompile>
     <ClCompile Include="pdNearFieldCommunication.cpp">
-      <Filter>NFC</Filter>
+      <Filter>Devices\NFC</Filter>
+    </ClCompile>
+    <ClCompile Include="pdClient.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_nfc.cpp">
+      <Filter>Terminal\Commands\nfc</Filter>
+    </ClCompile>
+    <ClCompile Include="pdCommand_nfcMasterkey.cpp">
+      <Filter>Terminal\Commands\nfc-masterkey</Filter>
+    </ClCompile>
+    <ClCompile Include="pdDisplay.cpp">
+      <Filter>Devices\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="pdBuzzer.cpp">
+      <Filter>Devices\Buzzer</Filter>
+    </ClCompile>
+    <ClCompile Include="pdLed.cpp">
+      <Filter>Devices\Led</Filter>
+    </ClCompile>
+    <ClCompile Include="pdRelay.cpp">
+      <Filter>Devices\Relay</Filter>
+    </ClCompile>
+    <ClCompile Include="pdDevice.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="pdMD5.cpp">
+      <Filter>Utils\MD5</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

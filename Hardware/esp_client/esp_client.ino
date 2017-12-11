@@ -2,7 +2,9 @@
 
 #include "pdOptions.h"
 #include "pdWorkerWiFi.h"
-#include "pdNearFieldCommunication.h"
+#include "pdDevice.h"
+#include "pdClient.h"
+
 #include "pdTerminal.h"
 #include "pdCommand_scan.h"
 #include "pdCommand_connect.h"
@@ -17,7 +19,9 @@
 
 Options::AOptions				options;						//система настроек
 Network::AWorkerWiFi			workerWiFi(&Serial, &options);	//помошник вайфая
-NFC::ANearFieldCommunication	nfc;							//приемник метки
+Network::AClient				client;							//клиент для сервера
+Devices::ADevice				device;							//устройства
+
 
 Terminal::ATerminal			terminal(&Serial);				//терминал
 Terminal::ACMD_scan			cmd_scan;						//команда терминала список вафлей
@@ -32,6 +36,7 @@ Terminal::ACMD_name			cmd_name(&options);				//имя устройства
 
 void setup()
 {
+	//инциализация терминала
 	terminal.addCommand(&cmd_name);
 	terminal.addCommand(&cmd_wifi);
 	terminal.addCommand(&cmd_scan);
@@ -47,12 +52,14 @@ void setup()
 
 
 	workerWiFi.begin();
-	nfc.begin();
+	device.begin();
+	client.begin();
 }
 
 
 void loop()
 {
-	terminal.update();
-	nfc.update();
+	terminal.update();	//работа терминала
+	device.update();	//работа устройств
+	client.update();	//сетевые действия
 }

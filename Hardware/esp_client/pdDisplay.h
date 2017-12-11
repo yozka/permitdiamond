@@ -1,8 +1,5 @@
 ﻿#pragma once
 #include <Arduino.h>
-#include <MFRC522.h>
-
-#include <vector>
 namespace Devices
 {
 	///--------------------------------------------------------------------------------------
@@ -13,11 +10,11 @@ namespace Devices
 
 	 ///=====================================================================================
 	///
-	/// Удаленный считыватель карт
+	/// Дисплей
 	/// 
 	/// 
 	///--------------------------------------------------------------------------------------
-	class ANearFieldCommunication
+	class ADisplay
 	{
 	public:
 		///--------------------------------------------------------------------------------------
@@ -30,7 +27,7 @@ namespace Devices
 		///
 		/// Constructor.
 		///--------------------------------------------------------------------------------------
-		ANearFieldCommunication();
+		ADisplay();
 		///--------------------------------------------------------------------------------------
 
 
@@ -43,7 +40,7 @@ namespace Devices
 		/// 
 		/// 
 		///--------------------------------------------------------------------------------------
-		virtual ~ANearFieldCommunication();
+		virtual ~ADisplay();
 		///--------------------------------------------------------------------------------------
 
 
@@ -54,14 +51,13 @@ namespace Devices
 
 
 		//заблокируем копирование
-		ANearFieldCommunication& operator = (const ANearFieldCommunication&) = delete;
-		ANearFieldCommunication(const ANearFieldCommunication&) = delete;
+		ADisplay& operator = (const ADisplay&) = delete;
+		ADisplay(const ADisplay&) = delete;
 
 	private:
 
 	
-		MFRC522		mDevice;
-		int			mIndex;		//индекс обрабатываемой карточки
+		
 	};
 
 }

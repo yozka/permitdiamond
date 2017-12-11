@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include <Arduino.h>
-#include <MFRC522.h>
+#include "pdDisplay.h"
+#include "pdNearFieldCommunication.h"
+#include "pdBuzzer.h"
+#include "pdLed.h"
+#include "pdRelay.h"
 
-#include <vector>
 namespace Devices
 {
 	///--------------------------------------------------------------------------------------
@@ -13,11 +16,11 @@ namespace Devices
 
 	 ///=====================================================================================
 	///
-	/// Удаленный считыватель карт
+	/// Сам девайс
 	/// 
 	/// 
 	///--------------------------------------------------------------------------------------
-	class ANearFieldCommunication
+	class ADevice
 	{
 	public:
 		///--------------------------------------------------------------------------------------
@@ -30,7 +33,7 @@ namespace Devices
 		///
 		/// Constructor.
 		///--------------------------------------------------------------------------------------
-		ANearFieldCommunication();
+		ADevice();
 		///--------------------------------------------------------------------------------------
 
 
@@ -43,7 +46,7 @@ namespace Devices
 		/// 
 		/// 
 		///--------------------------------------------------------------------------------------
-		virtual ~ANearFieldCommunication();
+		virtual ~ADevice();
 		///--------------------------------------------------------------------------------------
 
 
@@ -52,16 +55,27 @@ namespace Devices
 		void update();	//обновление состояния считывания меток
 
 
+		///--------------------------------------------------------------------------------------
+		/// сами устройства
+		///--------------------------------------------------------------------------------------
+		ANearFieldCommunication		nfc;	//считыватель карт
+		ADisplay					display;//экран
+		ARelay						relay;	//релюха управляющая
+		ABuzzer						buzzer;	//пищалка
+		ALed						led;	//светодиод
+
+
+
+
 
 		//заблокируем копирование
-		ANearFieldCommunication& operator = (const ANearFieldCommunication&) = delete;
-		ANearFieldCommunication(const ANearFieldCommunication&) = delete;
+		ADevice& operator = (const ADevice&) = delete;
+		ADevice(const ADevice&) = delete;
 
 	private:
 
 	
-		MFRC522		mDevice;
-		int			mIndex;		//индекс обрабатываемой карточки
+		
 	};
 
 }

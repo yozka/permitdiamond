@@ -1,4 +1,4 @@
-﻿#include "pdNearFieldCommunication.h"
+﻿#include "pdDevice.h"
 
 
 using namespace Devices;
@@ -14,9 +14,7 @@ using namespace Devices;
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ANearFieldCommunication::ANearFieldCommunication()
-	:
-	mDevice(D1, D2)
+ADevice :: ADevice()
 {
 	
 }
@@ -26,13 +24,13 @@ ANearFieldCommunication::ANearFieldCommunication()
 
 
 
-///=====================================================================================
+ ///=====================================================================================
 ///
 /// Destructor
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-ANearFieldCommunication::~ANearFieldCommunication()
+ADevice :: ~ADevice()
 {
 
 }
@@ -51,10 +49,13 @@ ANearFieldCommunication::~ANearFieldCommunication()
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-void ANearFieldCommunication :: begin()
+void ADevice :: begin()
 {
-	SPI.begin();
-	mDevice.PCD_Init();
+	display.begin();
+	buzzer.begin();
+	led.begin();
+	relay.begin();
+	nfc.begin();
 }
 ///--------------------------------------------------------------------------------------
 
@@ -67,41 +68,12 @@ void ANearFieldCommunication :: begin()
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-void ANearFieldCommunication :: update()
+void ADevice :: update()
 {
-	if (!mDevice.PICC_IsNewCardPresent())
-	{
-		return;
-	}
-	// Select one of the cards 
-	if (!mDevice.PICC_ReadCardSerial())
-	{
-		return;
-	}
-
-	//пришла новая карта, запомним ее в буфере
-
-
-	/*
-	Serial.print("UID Tag:"); // Display the UID serial 
-	String content = "";
-	byte letter;
-	for(byte i = 0; i < mDevice.uid.size; i++)
-	{
-		Serial.print(mDevice.uid.uidByte[i] <0x10 ? "0" : "");
-		Serial.print(mDevice.uid.uidByte[i] HEX);
-		cont.concat(String(mDevice.uid.uidByte[i] <0x10 ? "0" : ""));
-		cont.concat(String(mDevice.uid.uidByte[i] HEX));
-	}
-
-	
-	void dump_byte_array(byte *buffer, byte bufferSize) {
-		for (byte i = 0; i < bufferSize; i++) {
-			Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-			Serial.print(buffer[i], HEX);
-		}
-	}
-	*/
+	display.update();
+	led.update();
+	relay.update();
+	nfc.update();
 }
 ///--------------------------------------------------------------------------------------
 
