@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include "pdMD5.h"
-#include "pdProtocol.h"
+#include "pdPacket.h"
 namespace Network
 {
 namespace STP
@@ -70,8 +70,10 @@ namespace STP
 
 
 
-		bool securityCheck (const Protocol::THeader *header); //проверка на безопасность данных
+		bool securityCheck (const APacket &packet); //проверка на безопасность данных
 
+
+		void sign(const APacket &receiv, APacket &send); //подписывание пакета
 
 
 		//заблокируем копирование

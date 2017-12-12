@@ -61,6 +61,7 @@ namespace Utils
 		void update(const char *buf, size_t length);
 		void finalize();
 		bool equals(const unsigned char hash[16]) const; //проверка на совпадение
+		void copyTo(unsigned char hash[16]) const; //копирование в указанный массив
 
 	private:
 		void init();

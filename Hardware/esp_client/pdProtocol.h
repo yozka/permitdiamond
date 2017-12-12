@@ -19,9 +19,6 @@ namespace Network
 			uint8_t		stp[16];	//хешь пакета подпись
 		};
 		//
-		
-
-
 
 
 		#pragma pop pack

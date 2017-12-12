@@ -336,14 +336,25 @@ void AMD5::finalize()
 
 
 //проверка на совпадение
-bool AMD5::equals(const unsigned char hash[16]) const
+bool AMD5 :: equals(const unsigned char hash[16]) const
 {
 	for (int i = 0; i < 16; i++)
 	{
-		if (hash[i] != digest[16])
+		if (hash[i] != digest[i])
 		{
 			return false;
 		}
 	}
 	return true;
 }
+
+
+//копирование в указанный массив
+void AMD5::copyTo(unsigned char hash[16]) const
+{
+	for (int i = 0; i < 16; i++)
+	{
+		hash[i] = digest[i];
+	}
+}
+

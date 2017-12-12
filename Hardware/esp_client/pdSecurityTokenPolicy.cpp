@@ -90,12 +90,14 @@ String ASecurityTokenPolicy :: token()const
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-bool ASecurityTokenPolicy :: securityCheck(const Protocol::THeader *header)
+bool ASecurityTokenPolicy :: securityCheck(const APacket &packet)
 {
 	//проверка хеша подписи
 	//хешь считается от Sequince + typeCommand + token
-	mHash.sequence = header->sequence;
-	mHash.typeAction = header->typeAction;
+	const auto header = packet.header();
+	
+	mHash.sequence		= header->sequence;
+	mHash.typeAction	= header->typeAction;
 
 	mMD5.update((char*)&mHash, sizeof(TSelectorHash));
 	mMD5.finalize();
@@ -108,6 +110,39 @@ bool ASecurityTokenPolicy :: securityCheck(const Protocol::THeader *header)
 	//
 
 	return true;
+}
+///--------------------------------------------------------------------------------------
+
+
+
+
+ ///=====================================================================================
+///
+/// подписывание пакета
+/// 
+/// 
+///--------------------------------------------------------------------------------------
+void ASecurityTokenPolicy :: sign(const APacket &receiv, APacket &send)
+{
+	//проверка хеша подписи
+	//хешь считается от Sequince + typeCommand + token
+	const auto *headerReceiv = receiv.header();
+	auto *header = send.header();
+
+	
+	//сформировали заголовок
+	header->SRC			= Protocol::SRC;
+	header->typeAction	= headerReceiv->typeAction;
+	header->sequence	= headerReceiv->sequence;
+
+
+	//подпишем его
+	mHash.sequence		= header->sequence;
+	mHash.typeAction	= header->typeAction;
+
+	mMD5.update((char*)&mHash, sizeof(TSelectorHash));
+	mMD5.finalize();
+	mMD5.copyTo(header->stp);
 }
 ///--------------------------------------------------------------------------------------
 

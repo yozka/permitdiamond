@@ -128,23 +128,8 @@ void AClient :: update()
 		return;
 	}
 
-	/*
-	
-	if (packetSize <= sizeof(Protocol::THeader))
-	{
-		//пакет маленький, пришло какоето гавно
-		return;
-	}
-
-	const auto *header = (Protocol::THeader*)mBufferReceiv;
-	if (header->SRC != Protocol::SRC)
-	{
-		//проблема с магическим числом. пакет неверный
-		return;
-	}
-
 	//проверка достоверность данных
-	if (!mSTP.securityCheck(header))
+	if (!mSTP.securityCheck(mPacketReceiv))
 	{
 		//данные не корректные, отошлем серверу чтобы он перехерачил данные
 		return;
@@ -152,10 +137,11 @@ void AClient :: update()
 
 
 	//поиск команды для обработки запроса
+	const auto typeAction = mPacketReceiv.typeAction();
 	AAction *pAction = nullptr;
 	for (auto &action : mActions)
 	{
-		if (action->typeAction() == header->typeAction)
+		if (action->typeAction() == typeAction)
 		{
 			pAction == action;
 			break;
@@ -167,20 +153,23 @@ void AClient :: update()
 		return;
 	}
 
-	//
-	//указатель данных
-	const uint8_t *pData = mBufferReceiv + sizeof(Protocol::THeader);
-	const int sizeData = packetSize - sizeof(Protocol::THeader);
+	mPacketSend.clear();
+	pAction->process(mPacketReceiv, mPacketSend);
 
-	pAction->receiv();
+	const auto size = mPacketSend.size();
+	if (size <= 0)
+	{
+		//ответ ненужно отправлять
+		return;
+	}
+	
+	//подпишем пакет перед отправкой
+	mSTP.sign(mPacketReceiv, mPacketSend); 
 
 	//отошлем ответ
 	mUdp.beginPacket(mUdp.remoteIP(), mUdp.remotePort());
-	//mUdp.write(mBufferSend, len);
+	mUdp.write(mPacketSend.data(), size);
 	mUdp.endPacket();
-
-	*/
-
 }
 ///--------------------------------------------------------------------------------------
 
