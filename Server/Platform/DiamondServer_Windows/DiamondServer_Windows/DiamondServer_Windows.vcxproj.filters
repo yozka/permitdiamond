@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{c403f5ff-fd8f-430d-a66c-c4f1f1f125a6}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{c175b400-183c-4a80-9775-84f9219a1f50}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{c91edf15-811b-4934-ac40-2fe6dc7cc2e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MainWindows">
+      <UniqueIdentifier>{888a5158-b1cd-4f9a-b250-d9bc70b25ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Server">
+      <UniqueIdentifier>{60db3b13-927e-4425-9875-85b6fe57af95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Server\TransportUDP">
+      <UniqueIdentifier>{e51b9796-6dfc-4fa4-ba31-207ed33036a0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsServerCore.cpp">
+      <Filter>Source\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dsServerCore.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dsServerCore.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsDiamondServer_Windows.cpp">
+      <Filter>Source\MainWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dsDiamondServer_Windows.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dsDiamondServer_Windows.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsTransportUDP.cpp">
+      <Filter>Source\Server\TransportUDP</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dsTransportUDP.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="DiamondServer_Windows.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsServerCore.h">
+      <Filter>Source\Server</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsDiamondServer_Windows.h">
+      <Filter>Source\MainWindows</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsDiamondServer_Windows.ui">
+      <Filter>Source\MainWindows</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsTransportUDP.h">
+      <Filter>Source\Server\TransportUDP</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_dsDiamondServer_Windows.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Shared\Source\dsSettings.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -2,3 +2,8 @@
 /Hardware/esp_client/__vm
 /Hardware/esp_client/.vs
 /Hardware/esp_client/Release
+/Server/Platform/DiamondServer_Windows/.vs
+/Server/Platform/DiamondServer_Windows/Debug
+/Server/Platform/DiamondServer_Windows/Win32
+/Server/Platform/DiamondServer_Windows/DiamondServer_Windows/Debug
+/Server/Platform/DiamondServer_Windows/DiamondServer_Windows/GeneratedFiles
