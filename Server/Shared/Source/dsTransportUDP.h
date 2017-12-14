@@ -1,53 +1,72 @@
 #pragma once
-#include <QSharedPointer>
 #include <QUdpSocket>
-#include <QTimer>
+#include <QByteArray>
 //-----------------------------------------------------------------------------
+#include "dsClientAddress.h"
+//-----------------------------------------------------------------------------
+
 
 
 
 namespace Server
 {
-	//-------------------------------------------------------------------------
-
-
-
-
-
-	 ///-----------------------------------------------------------------------
-	///
-	/// Система транспорта данных
-	/// 
-	///
-	///------------------------------------------------------------------------
-	class ATransportUDP
-		:
-			public QObject
+	namespace Transport
 	{
-		Q_OBJECT
+		//-------------------------------------------------------------------------
 
-	public:
 
-		//constructor
-		AServerCore();
-		virtual ~AServerCore(); //destructor
+
+
+
+		 ///-----------------------------------------------------------------------
+		///
+		/// Система транспорта данных
+		/// 
+		///
+		///------------------------------------------------------------------------
+		class ATransportUDP
+			:
+			public QObject
+		{
+			Q_OBJECT
+
+		public:
+
+			//constructor
+			ATransportUDP();
+			virtual ~ATransportUDP(); //destructor
+
+			void bind(const int port); //начало отправки сообщений по указанному порту
+
+			void sendBroadcast(const QByteArray &packet); //отправить всем
+			void send(const QByteArray &packet, const AClientAddress &address); //отправка конкретному узлу
+
+
+
+
+			//заблокируем копирование
+			ATransportUDP& operator = (const ATransportUDP&) = delete;
+			ATransportUDP(const ATransportUDP&) = delete;
+
+
+		signals:
+
+			void signal_receiv(const QByteArray &packet, const AClientAddress &address);// данные пришли
+
+
 		
 
 
-		void run(); //запуск сервера
-
-
-	private:
-
-		QUdpSocket	*mUdp;
-		QTimer		*mProcessing;
-
-		void slot_readData(); //пришли данные
-		void slot_update(); //время выполнения
-	};
+		private:
+			QUdpSocket	mSocket;
 
 
 
-	using PServerCore = QSharedPointer<AServerCore>;
+			void slot_readData(); //пришли данные
+		};
 
+
+
+
+	}
 }

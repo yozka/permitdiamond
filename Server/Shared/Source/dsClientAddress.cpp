@@ -1,5 +1,4 @@
-#include "dsServerCore.h"
-#include "dsSettings.h"
+#include "dsClientAddress.h"
 ///------------------------------------------------------------------------
 
 
@@ -21,11 +20,12 @@ using namespace Server;
 ///
 ///
 ///------------------------------------------------------------------------
-AServerCore :: AServerCore()
+AClientAddress :: AClientAddress(const QHostAddress &host, const int port)
+	:
+	mHost(host),
+	mPort(port)
 {
 
-	connect(&mProcessing, &QTimer::timeout, this, &AServerCore::slot_update);
-	connect(&mTransport, &Transport::ATransportUDP::signal_receiv, &mProtocol, &Protocol::AProtocol::slot_receiv);
 }
 ///------------------------------------------------------------------------
 
@@ -40,11 +40,14 @@ AServerCore :: AServerCore()
 ///
 ///
 ///------------------------------------------------------------------------
-AServerCore :: ~AServerCore()
+AClientAddress :: ~AClientAddress()
 {
 
 }
 ///------------------------------------------------------------------------
+
+
+
 
 
 
@@ -53,16 +56,19 @@ AServerCore :: ~AServerCore()
 
  ///-----------------------------------------------------------------------
 ///
-/// запуск сервера
+/// возвратим хост адреса
 ///
 ///
 ///------------------------------------------------------------------------
-void AServerCore :: run()
+QHostAddress AClientAddress :: host()const
 {
-	mTransport.bind(Settings::serverPort);
-	mProcessing.start(Settings::serverTimeUpdate);
+	return mHost;
 }
 ///------------------------------------------------------------------------
+
+
+
+
 
 
 
@@ -70,31 +76,12 @@ void AServerCore :: run()
 
  ///-----------------------------------------------------------------------
 ///
-/// обработка сервера
-/// процессорное время
+/// возвратим порт адреса
+///
 ///
 ///------------------------------------------------------------------------
-void AServerCore :: slot_update()
+int AClientAddress::port()const
 {
-	ACommand_findClient;
-	mProtocol
-
-	
-	QByteArray buf(100,0);
-	mTransport.sendBroadcast(buf);
-
-	//AClientAddress addr(QHostAddress(QString::fromLocal8Bit("192.168.1.108")), 3912);
-	//mTransport->send(buf, addr);
-
+	return mPort;
 }
-///------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
 

@@ -117,6 +117,9 @@ void AClient :: update()
 		//данные не пришли
 		return;
 	}
+	Serial.print("Пакет пришел: ");
+	Serial.println(packetSize);
+
 
 	//создадис входящий пакет
 	mPacketReceiv.create(packetSize);
@@ -125,6 +128,7 @@ void AClient :: update()
 	if (!mPacketReceiv.isValid())
 	{
 		//пакет битый в хламину
+		Serial.println("Битый пакет");
 		return;
 	}
 
@@ -132,6 +136,7 @@ void AClient :: update()
 	if (!mSTP.securityCheck(mPacketReceiv))
 	{
 		//данные не корректные, отошлем серверу чтобы он перехерачил данные
+		Serial.println("Секюрность пакета нарушенна");
 		return;
 	}
 
@@ -150,6 +155,7 @@ void AClient :: update()
 	if (pAction == nullptr)
 	{
 		//команда не найденна
+		Serial.println("Команда не найдена");
 		return;
 	}
 
@@ -160,6 +166,7 @@ void AClient :: update()
 	if (size <= 0)
 	{
 		//ответ ненужно отправлять
+		Serial.println("Ответ отсутствует");
 		return;
 	}
 	

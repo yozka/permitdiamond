@@ -1,5 +1,5 @@
-#include "dsServerCore.h"
-#include "dsSettings.h"
+#include "dsTransportUDP.h"
+#include <QNetworkInterface>
 ///------------------------------------------------------------------------
 
 
@@ -8,6 +8,7 @@
 
 ///------------------------------------------------------------------------
 using namespace Server;
+using namespace Server::Transport;
 ///------------------------------------------------------------------------
 
 
@@ -15,25 +16,17 @@ using namespace Server;
 
 
 
-///-----------------------------------------------------------------------
+ ///-----------------------------------------------------------------------
 ///
 /// Constructor
 ///
 ///
 ///------------------------------------------------------------------------
-AServerCore::AServerCore()
+ATransportUDP :: ATransportUDP()
 	:
-	mUdp(nullptr),
-	mProcessing(nullptr)
-
-
+	mSocket(this)
 {
-	mUdp = new QUdpSocket();
-	connect(mUdp, &QUdpSocket::readyRead, this, &AServerCore::slot_readData);
-
-
-	mProcessing = new QTimer();
-	connect(mProcessing, &QTimer::timeout, this, &AServerCore::slot_update);
+	connect(&mSocket, &QUdpSocket::readyRead, this, &ATransportUDP::slot_readData);
 }
 ///------------------------------------------------------------------------
 
@@ -42,16 +35,15 @@ AServerCore::AServerCore()
 
 
 
-///-----------------------------------------------------------------------
+ ///-----------------------------------------------------------------------
 ///
 /// Destructor
 ///
 ///
 ///------------------------------------------------------------------------
-AServerCore :: ~AServerCore()
+ATransportUDP :: ~ATransportUDP()
 {
-	delete mUdp;
-	delete mProcessing;
+	
 }
 ///------------------------------------------------------------------------
 
@@ -60,32 +52,15 @@ AServerCore :: ~AServerCore()
 
 
 
-///-----------------------------------------------------------------------
+ ///-----------------------------------------------------------------------
 ///
-/// запуск сервера
+/// начало отправки сообщений по указанному порту
 ///
 ///
 ///------------------------------------------------------------------------
-void AServerCore::run()
+void ATransportUDP :: bind(const int port)
 {
-	mUdp->bind(QHostAddress::LocalHost, Settings::serverPort);
-	mProcessing->start(Settings::serverTimeUpdate);
-}
-///------------------------------------------------------------------------
-
-
-
-
-
-///-----------------------------------------------------------------------
-///
-/// обработка сервера
-/// процессорное время
-///
-///------------------------------------------------------------------------
-void AServerCore::slot_update()
-{
-
+	mSocket.bind(QHostAddress::Any, port);
 }
 ///------------------------------------------------------------------------
 
@@ -95,34 +70,30 @@ void AServerCore::slot_update()
 
 
 
-///-----------------------------------------------------------------------
+
+
+ ///-----------------------------------------------------------------------
 ///
 /// пришли данные из клиентов
 ///
 ///
 ///------------------------------------------------------------------------
-void AServerCore::slot_readData()
+void ATransportUDP :: slot_readData()
 {
-	while (mUdp->hasPendingDatagrams())
+	while (mSocket.hasPendingDatagrams())
 	{
-		const int packetSize = mUdp->pendingDatagramSize();
+		const int packetSize = mSocket.pendingDatagramSize();
 		QByteArray datagram(packetSize, 0);
 		QHostAddress sender;
 		quint16 senderPort;
 
-		mUdp->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
+		mSocket.readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
-
-		//
-		//QDataStream stream(&datagram, QIODevice::ReadOnly);
-		//stream.setByteOrder(QDataStream::LittleEndian);
-
-
+		const AClientAddress address(sender, senderPort);
+		emit signal_receiv(datagram, address);
 	}
-
-
-
 }
+///--------------------------------------------------------------------------------------
 
 
 
@@ -135,26 +106,13 @@ void AServerCore::slot_readData()
 
  ///=====================================================================================
 ///
-/// запуск сканирования
+/// отправить всем
 /// 
 /// 
 ///--------------------------------------------------------------------------------------
-void AScanDevices :: scan()
+void ATransportUDP :: sendBroadcast(const QByteArray &packet)
 {
-	if (!mActive)
-	{
-		mActive = true;
-		mInfos.clear();
-		mTimer->start(Settings::timeScan);
-	}
-
-
-	QByteArray packet;
-	QDataStream out(&packet, QIODevice::WriteOnly);
-	out.setByteOrder(QDataStream::LittleEndian);
-	out << (quint8)(0xCF);
-	out << (quint8)(0xAF);
-
+	const auto port = mSocket.localPort();
 
 	//пробежимся по всем сетям
 	const auto ifaces = QNetworkInterface::allInterfaces();
@@ -166,7 +124,7 @@ void AScanDevices :: scan()
 			const auto broadcast = itemAddrs->broadcast();
 			if (!broadcast.isNull())
 			{
-				mSocket->writeDatagram(packet.data(), packet.size(), broadcast, Settings::portScan);
+				mSocket.writeDatagram(packet.data(), packet.size(), broadcast, port);
 			}
 		}
 	}
@@ -177,3 +135,16 @@ void AScanDevices :: scan()
 
 
 
+
+
+
+ ///=====================================================================================
+///
+/// отправка конкретному узлу
+/// 
+/// 
+///--------------------------------------------------------------------------------------
+void ATransportUDP :: send(const QByteArray &packet, const AClientAddress &address)
+{
+	mSocket.writeDatagram(packet, address.host(), address.port());
+}

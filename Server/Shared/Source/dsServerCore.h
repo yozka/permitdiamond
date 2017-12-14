@@ -1,11 +1,16 @@
 #pragma once
 #include <QSharedPointer>
-#include <QUdpSocket>
 #include <QTimer>
+//-----------------------------------------------------------------------------
+#include "dsTransportUDP.h"
+#include "dsProtocol.h"
 //-----------------------------------------------------------------------------
 
 
 
+
+
+//-----------------------------------------------------------------------------
 namespace Server
 {
 	//-------------------------------------------------------------------------
@@ -34,13 +39,20 @@ namespace Server
 
 		void run(); //запуск сервера
 
+		
+					//заблокируем копирование
+		AServerCore& operator = (const AServerCore&) = delete;
+		AServerCore(const AServerCore&) = delete;
+
 
 	private:
 
-		QUdpSocket	*mUdp;
-		QTimer		*mProcessing;
+		QTimer						mProcessing;
+		Transport::ATransportUDP	mTransport;
+		Protocol::AProtocol			mProtocol;
 
-		void slot_readData(); //пришли данные
+
+
 		void slot_update(); //время выполнения
 	};
 

@@ -7,3 +7,5 @@
 /Server/Platform/DiamondServer_Windows/Win32
 /Server/Platform/DiamondServer_Windows/DiamondServer_Windows/Debug
 /Server/Platform/DiamondServer_Windows/DiamondServer_Windows/GeneratedFiles
+/Server/Platform/DiamondServer_Windows/DiamondServer_Windows/*.user
+/Server/Platform/DiamondServer_Windows/DiamondServer_Windows/DiamondServer_Windows.vcxproj.user

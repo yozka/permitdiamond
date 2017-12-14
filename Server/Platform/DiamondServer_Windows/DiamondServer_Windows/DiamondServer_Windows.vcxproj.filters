@@ -38,6 +38,12 @@
     <Filter Include="Source\Server\TransportUDP">
       <UniqueIdentifier>{e51b9796-6dfc-4fa4-ba31-207ed33036a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Server\Protocol">
+      <UniqueIdentifier>{5b04fc1b-2fd2-4a5e-a1d3-3d67db8e7d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Server\ClientAddress">
+      <UniqueIdentifier>{50bd6336-9fe6-4b98-9f89-da12aada3448}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,6 +73,21 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_dsTransportUDP.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dsTransportUDP.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsProtocol.cpp">
+      <Filter>Source\Server\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dsProtocol.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dsProtocol.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsClientAddress.cpp">
+      <Filter>Source\Server\ClientAddress</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DiamondServer_Windows.qrc">
@@ -84,6 +105,9 @@
     <CustomBuild Include="..\..\..\Shared\Source\dsTransportUDP.h">
       <Filter>Source\Server\TransportUDP</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsProtocol.h">
+      <Filter>Source\Server\Protocol</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dsDiamondServer_Windows.h">
@@ -91,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Shared\Source\dsSettings.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Shared\Source\dsClientAddress.h">
+      <Filter>Source\Server\ClientAddress</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
