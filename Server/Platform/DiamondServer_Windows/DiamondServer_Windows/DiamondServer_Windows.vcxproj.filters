@@ -50,6 +50,9 @@
     <Filter Include="Source\Server\Protocol\Command">
       <UniqueIdentifier>{57c81678-6b57-4f70-b0d0-5ed5da2177eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Server\Packet">
+      <UniqueIdentifier>{c479fb91-36d5-4c0f-b4ec-28cd82b3b7b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -106,6 +109,9 @@
     <ClCompile Include="..\..\..\Shared\Source\dsCommand.cpp">
       <Filter>Source\Server\Protocol\Command</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsPacket.cpp">
+      <Filter>Source\Server\Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DiamondServer_Windows.qrc">
@@ -142,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Shared\Source\dsCommand.h">
       <Filter>Source\Server\Protocol\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Shared\Source\dsPacket.h">
+      <Filter>Source\Server\Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

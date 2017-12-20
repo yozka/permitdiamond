@@ -72,6 +72,7 @@
     <ClCompile Include="..\..\..\Shared\Source\dsClientAddress.cpp" />
     <ClCompile Include="..\..\..\Shared\Source\dsCommand.cpp" />
     <ClCompile Include="..\..\..\Shared\Source\dsDiamondServer_Windows.cpp" />
+    <ClCompile Include="..\..\..\Shared\Source\dsPacket.cpp" />
     <ClCompile Include="..\..\..\Shared\Source\dsProtocol.cpp" />
     <ClCompile Include="..\..\..\Shared\Source\dsServerCore.cpp" />
     <ClCompile Include="..\..\..\Shared\Source\dsTransportUDP.cpp" />
@@ -178,6 +179,7 @@
     </CustomBuild>
     <ClInclude Include="..\..\..\Shared\Source\dsClientAddress.h" />
     <ClInclude Include="..\..\..\Shared\Source\dsCommand.h" />
+    <ClInclude Include="..\..\..\Shared\Source\dsPacket.h" />
     <ClInclude Include="..\..\..\Shared\Source\dsSettings.h" />
     <CustomBuild Include="..\..\..\Shared\Source\dsTransportUDP.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
