@@ -44,6 +44,12 @@
     <Filter Include="Source\Server\ClientAddress">
       <UniqueIdentifier>{50bd6336-9fe6-4b98-9f89-da12aada3448}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Server\Client">
+      <UniqueIdentifier>{d720dd22-55b6-4485-bc4e-fb923cbe4696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Server\Protocol\Command">
+      <UniqueIdentifier>{57c81678-6b57-4f70-b0d0-5ed5da2177eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,6 +94,18 @@
     <ClCompile Include="..\..\..\Shared\Source\dsClientAddress.cpp">
       <Filter>Source\Server\ClientAddress</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsClient.cpp">
+      <Filter>Source\Server\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dsClient.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dsClient.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\Source\dsCommand.cpp">
+      <Filter>Source\Server\Protocol\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DiamondServer_Windows.qrc">
@@ -108,6 +126,9 @@
     <CustomBuild Include="..\..\..\Shared\Source\dsProtocol.h">
       <Filter>Source\Server\Protocol</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\Shared\Source\dsClient.h">
+      <Filter>Source\Server\Client</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dsDiamondServer_Windows.h">
@@ -118,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Shared\Source\dsClientAddress.h">
       <Filter>Source\Server\ClientAddress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Shared\Source\dsCommand.h">
+      <Filter>Source\Server\Protocol\Command</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

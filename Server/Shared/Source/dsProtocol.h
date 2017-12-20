@@ -1,7 +1,9 @@
 #pragma once
 #include <QObject>
+#include <QVector>
 //-----------------------------------------------------------------------------
 #include "dsClientAddress.h"
+#include "dsCommand.h"
 //-----------------------------------------------------------------------------
 
 
@@ -36,6 +38,9 @@ namespace Server
 
 
 
+			void append(const PCommand &command); //добавление команды
+
+
 			//заблокируем копирование
 			AProtocol& operator = (const AProtocol&) = delete;
 			AProtocol(const AProtocol&) = delete;
@@ -48,6 +53,8 @@ namespace Server
 
 
 		private:
+
+			QVector<PCommand> mCommands;
 
 
 		};

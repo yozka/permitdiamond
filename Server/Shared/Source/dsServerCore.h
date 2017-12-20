@@ -1,9 +1,11 @@
 #pragma once
 #include <QSharedPointer>
 #include <QTimer>
+#include <QList>
 //-----------------------------------------------------------------------------
 #include "dsTransportUDP.h"
 #include "dsProtocol.h"
+#include "dsClient.h"
 //-----------------------------------------------------------------------------
 
 
@@ -50,7 +52,7 @@ namespace Server
 		QTimer						mProcessing;
 		Transport::ATransportUDP	mTransport;
 		Protocol::AProtocol			mProtocol;
-
+		QList<Client::PClient>		mClients; //список клиентов
 
 
 		void slot_update(); //время выполнения
