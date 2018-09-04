@@ -1,5 +1,5 @@
 #include "pdSecurityTokenPolicy.h"
-
+#include "pdString.h"
 
 using namespace Network::STP;
 ///--------------------------------------------------------------------------------------

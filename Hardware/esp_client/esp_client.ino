@@ -1,4 +1,4 @@
-﻿#include <Arduino.h>
+#include <Arduino.h>
 
 #include "pdOptions.h"
 #include "pdWorkerWiFi.h"
@@ -63,7 +63,7 @@ void setup()
 void loop()
 {
 	terminal.update();	//работа терминала
-	device.update();	//работа устройств
-	client.update();	//сетевые действия
+	//device.update();	//работа устройств
+	//client.update();	//сетевые действия
 	workerWiFi.update(); //работа вафли
 }
